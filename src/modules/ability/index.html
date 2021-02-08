@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+    <script>
+        (function(win, doc) {
+            var W = win.innerWidth;
+            var UIW = 750;
+            var RATIO = 100; // 1rem = 100px,750 / 100 = W / 
+
+            if (W < 1000) {
+                doc.documentElement.style.fontSize = W / (UIW / RATIO) + "px";
+            }
+
+        })(window, document)
+    </script>
+</head>
+
+<body>
+    <div id="ability"></div>
+    <!-- built files will be auto injected -->
+    <script src="<%=htmlWebpackPlugin.options.prefix %>static/jquery.min.js"></script>
+</body>
+
+</html>
