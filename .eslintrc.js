@@ -15,6 +15,7 @@ module.exports = {
         parser: "babel-eslint",
         ecmaVersion: 2017,
         sourceType: "module",
+        allowImportExportEverywhere: true,
     },
     globals: {
         // 全局使用的变量名

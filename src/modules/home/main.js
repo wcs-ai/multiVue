@@ -13,6 +13,21 @@ import axios from '@/utils/axios';
 Vue.use(Loading);
 theme.use('dark');
 
+
+router.beforeEach((to, from, next) => {
+    let TOKEN = window.localStorage.getItem("_token");
+    window.document.title = to.meta.title || "个人网站";
+    if (to.meta.login) {
+        if (TOKEN) {
+            next();
+        } else {
+            next({ path: "/login" });
+        }
+    } else {
+        next();
+    }
+});
+
 Vue.config.productionTip = false;
 Vue.prototype.$rpc = axios;
 /* eslint-disable no-new */

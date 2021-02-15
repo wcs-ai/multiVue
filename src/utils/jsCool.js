@@ -408,7 +408,7 @@ Matrix.prototype = {
 
 function ArrayOP(arr) {
     // 矩阵切片
-    var _mtp = new Matrix(arr);
+    const _mtp = new Matrix(arr);
     return _mtp;
 }
 
@@ -490,6 +490,115 @@ function replacePass(pass) {
     });
 
     return _lockPass.join("");
+}
+
+
+/*排序算法练习*/
+function SortTrain() {
+    if (this instanceof SortTrain) {
+
+        /*冒泡*/
+        this.maoPao = function(arr) {
+            let _rp;
+            let _ar = [...arr];
+
+            for (let i = 0; i < arr.length - 1; i++) {
+                for (let j = 0; j < arr.length - i - 1; j++) {
+                    if (_ar[j] > _ar[j + 1]) {
+                        _rp = _ar[j];
+                        _ar[j] = _ar[j + 1];
+                        _ar[j + 1] = _rp;
+                    }
+                }
+            }
+            return _ar;
+        };
+        /*插入：0,1排、0,1,2排、...*/
+        this.insert = function(arr) {
+            let _ar = [...arr];
+            let _nar = [_ar[0]];
+
+            _ar.forEach((val) => {
+                for (let i = 0; i < _nar.length; i++) {
+                    if (val < _nar[i]) {
+                        _nar.splice(i, 0, val);
+                    }
+                }
+            });
+            return _nar;
+        };
+
+        /*希尔*/
+        this.xe = function(arr) {
+            let _ar = [...arr];
+            const _centerp = math.floor(arr.length / 2);
+            let n = 0,
+                m = 0;
+            /*1、分成两部分，两部分同位相比交换*/
+            for (let i = 0; i < _centerp; i++) {
+                m = _centerp + i;
+                if (_ar[i] > _ar[m]) {
+                    n = _ar[i];
+                    _ar[i] = _ar[m];
+                    _ar[m] = n;
+                }
+            }
+            /*2、相邻奇位对比互换、相邻偶位对比互换。*/
+            for (let j = 0; j < _ar.length; j++) {
+                if (j + 2 < _ar.length && _ar[j] > _ar[j + 2]) {
+                    n = _ar[j];
+                    _ar[j] = _ar[j + 2];
+                    _ar[j + 2] = n;
+                }
+            }
+            /*3、相邻位对比互换。*/
+            for (let k = 0; k < _ar.length; k++) {
+                if (k + 1 < _ar.length && _ar[k] > _ar[k + 1]) {
+                    n = _ar[k];
+                    _ar[k] = _ar[k + 1];
+                    _ar[k + 1] = n;
+                }
+            }
+            return _ar;
+        };
+        /*快速*/
+        this.rapidly = function(arr) {
+            let _ar = [...arr];
+
+
+            function dg(tar) {
+                let _la = [],
+                    _ra = [];
+                /*选出一个值，其它值比其大的放右边，小的放左边*/
+                const center_idx = math.floor(tar.length / 2);
+                const base = tar[center_idx];
+
+                for (let i = 0; i < base; i++) {
+                    if (i === center_idx) {
+                        continue;
+                    } else if (tar[i] < base) {
+                        _la.push(tar[i]);
+                    } else {
+                        _ra.push(tar[i]);
+                    }
+                }
+                /*递归*/
+                if (_la.length > 1) {
+                    _la = dg(_la);
+                }
+                if (_ra.length > 1) {
+                    _ra = dg(_ra);
+                }
+
+                _la.push(base);
+                return _la.concat(_ra);
+
+            }
+
+        };
+    } else {
+        return new SortTrain();
+    }
 }
 
 

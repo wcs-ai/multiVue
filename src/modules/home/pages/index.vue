@@ -51,6 +51,14 @@ export default {
         title: "椎体",
         descript: "css3d属性绘制3d图形。",
         path: "/zuiti"
+      },{
+        title: "进度条",
+        descript: "canvas绘制的绚丽进度条。",
+        path: "/schedule"
+      },{
+        title: "写轮眼",
+        descript: "svg绘制写轮眼动画。",
+        path: "/eye"
       }],
     }
   },

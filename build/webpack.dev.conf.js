@@ -6,7 +6,6 @@ const merge = require('webpack-merge')
 const path = require('path')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 const multi = require('../config/multi')
@@ -46,6 +45,22 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': require('../config/dev.env')
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vue",
+            minChunks(module) {
+                return (
+                    module.resource &&
+                    /.js$/g.test(module.resource) &&
+                    /vue/g.test(module.resource)
+                )
+            }
+        }),
+        // extract webpack runtime and module manifest to its own file in order to
+        // prevent vendor hash from being updated whenever app bundle is updated
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest',
+            minChunks: Infinity
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
